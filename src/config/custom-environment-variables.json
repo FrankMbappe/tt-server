@@ -1,9 +1,9 @@
 {
-	"twilioAccountSid": "TWILIO_ACCOUNT_SID_ALT",
-	"twilioAuthToken": "TWILIO_AUTH_TOKEN_ALT",
-	"twilioServiceId": "TWILIO_SERVICE_ID_ALT",
-	"jwtPrivateKey": "nettserver_jwtPrivateKey",
-	"cloudinaryCloudName": "nettserver_cloudinaryCloudName",
-	"cloudinaryApiKey": "nettserver_cloudinaryApiKey",
-	"cloudinaryApiSecret": "nettserver_cloudinaryApiSecret"
+  "twilioAccountSid": "TWILIO_ACCOUNT_SID",
+  "twilioAuthToken": "TWILIO_AUTH_TOKEN",
+  "twilioServiceId": "TWILIO_SERVICE_ID",
+  "jwtPrivateKey": "JWT_PRIVATE_KEY",
+  "cloudinaryCloudName": "CLOUDINARY_CLOUD_NAME",
+  "cloudinaryApiKey": "CLOUDINARY_API_KEY",
+  "cloudinaryApiSecret": "CLOUDINARY_API_SECRET"
 }
