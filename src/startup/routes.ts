@@ -9,9 +9,9 @@ const setupRoutes = (app: Express) => {
   app.use(express.urlencoded({ extended: true }));
   app.use(helmet());
   app.use(loggingHandler);
-  app.use("/uploads", express.static("uploads")); // Making 'uploads' folder public
+  app.use("/uploads", express.static("uploads")); // Makes 'uploads' folder public
 
-  /* Telling that every route starting by '/api/foo' should be handled by the 'foo' router */
+  // Every '/api/foo' route should be handled by the 'foo' router
   // app.use("/api/auth", auth);
   // app.use("/api/checks", checks);
   // app.use("/api/classrooms", classrooms);

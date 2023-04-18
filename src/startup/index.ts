@@ -4,11 +4,11 @@ import setupConfig from "./config";
 import setupDb from "./database";
 import setupRoutes from "./routes";
 
-const startup = async (app: Express) => {
+const startUp = async (app: Express) => {
   setupLogger();
   setupConfig();
   await setupDb();
   setupRoutes(app);
 };
 
-export default startup;
+export default startUp;
