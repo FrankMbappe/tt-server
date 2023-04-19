@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 import config from "config";
-import { ConfigEntries } from "@/enums";
+import { ConfigEntryEnum } from "@/enums";
 
 dotenv.config();
 
 export default function setupConfig() {
-  const isEveryEnvSet = Object.values(ConfigEntries).every((entry) =>
+  const isEveryEnvSet = Object.values(ConfigEntryEnum).every((entry) =>
     config.has(entry)
   );
 
