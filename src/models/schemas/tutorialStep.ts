@@ -1,14 +1,16 @@
 import { DbModelEnum } from "@/enums";
 import mongoose from "mongoose";
+import fileSchema from "./file";
+import baseSchema from "./base";
+import TutorialStep from "../interfaces/TutorialStep";
 
-const tutorialStepSchema = new mongoose.Schema({
-  creationDate: { type: Date, default: Date.now },
-  position: { type: Number, required: true },
+const tutorialStepSchema = new mongoose.Schema<TutorialStep>({
+  ...baseSchema.obj,
+  index: { type: Number, required: true },
   title: { type: String, minlength: 1, maxlength: 255, required: true },
   description: { type: String, maxlength: 255 },
-  videoUri: { type: String, required: true },
-  videoCloudPublicId: String,
-  haveWatched: { type: [mongoose.Types.ObjectId], default: [] },
+  video: { type: fileSchema, required: true },
+  viewerIds: { type: [mongoose.Types.ObjectId], default: [] },
 });
 
 export const TutorialStepModel = mongoose.model(

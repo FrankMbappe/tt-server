@@ -2,16 +2,17 @@ import mongoose from "mongoose";
 import isBefore from "date-fns/isBefore";
 import postSchema from "./post";
 import qaSchema from "./qa";
-import quizParticipationSchema from "./quizParticipation";
+import quizAttemptSchema from "./quizAttempt";
 import { DbModelEnum } from "@/enums";
+import Quiz from "../interfaces/Quiz";
 
-const quizSchema = new mongoose.Schema({
+const quizSchema = new mongoose.Schema<Quiz>({
   ...postSchema.obj,
   title: { type: String, minlength: 3, maxlength: 255, required: true },
   description: { type: String, minlength: 1, maxlength: 1000 },
-  hasTimeInterval: { type: Boolean, required: true },
-  dateOpening: Date,
-  dateClosing: {
+  isTimeBounded: { type: Boolean, required: true },
+  opensAt: Date,
+  closesAt: {
     type: Date,
     validator: {
       validate: function (value: Date) {
@@ -20,7 +21,7 @@ const quizSchema = new mongoose.Schema({
     },
   },
   qas: { type: [qaSchema], required: true },
-  participations: { type: [quizParticipationSchema], default: [] },
+  attempts: { type: [quizAttemptSchema], default: [] },
   isDeterministic: { type: Boolean, default: false },
 });
 

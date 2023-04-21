@@ -1,15 +1,17 @@
 import express from "express";
 import dotenv from "dotenv";
+import winston from "winston";
+import startUp from "./startup";
 
 dotenv.config();
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Express + TypeScript Server");
-});
-
-app.listen(port, () => {
-  console.log(`⚡️[server]: Da server is running at http://localhost:${port}`);
-});
+startUp(app).then(() =>
+  app.listen(port, () => {
+    winston.info(
+      `⚡️[server]: Da server is running at http://localhost:${port}`
+    );
+  })
+);

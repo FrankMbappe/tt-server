@@ -3,30 +3,13 @@ import config from "config";
 import jwt from "jsonwebtoken";
 import startCase from "lodash/startCase";
 import capitalize from "lodash/capitalize";
-import { DbModelEnum, UserTypeEnum } from "@/enums";
+import { DbModelEnum, UserCategoryEnum } from "@/enums";
 import userProfileSchema from "./userProfile";
+import baseSchema from "./base";
+import User from "../interfaces/User";
 
-// Basic user properties
-const basicProps = {
-  creationDate: { type: Date, default: Date.now },
-  phone: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
-  _type: {
-    type: String,
-    required: true,
-    enum: Object.values(UserTypeEnum),
-    lowercase: true,
-    trim: true,
-  },
-  classrooms: [{ type: mongoose.Types.ObjectId, ref: DbModelEnum.Classroom }],
-  profile: userProfileSchema,
-};
-const studentProps = {
-  field: {
+const studentAttrs = {
+  fieldOfStudy: {
     type: String,
     minlength: 3,
     maxlength: 255,
@@ -34,21 +17,15 @@ const studentProps = {
   },
   // TODO: reportCard: [{ Results }]
 };
-const consultantProps = {
-  company: String,
-  proPhone: {
-    type: String,
-    trim: true,
-  },
-  proEmail: { type: String },
-  mainDomain: {
+const consultantAttrs = {
+  expertIn: {
     type: String,
     required: true,
     trim: true,
     minlength: 3,
     maxlength: 255,
   },
-  additDomains: [
+  otherDomainsOfExpertise: [
     {
       type: String,
       trim: true,
@@ -57,9 +34,15 @@ const consultantProps = {
     },
   ],
   yearsOfExperience: { type: Number, default: 0 },
+  companyName: String,
+  proPhoneNumber: {
+    type: String,
+    trim: true,
+  },
+  proEmail: { type: String },
 };
-const teacherProps = {
-  lectures: [
+const teacherAttrs = {
+  lecturesIn: [
     {
       type: String,
       trim: true,
@@ -71,16 +54,27 @@ const teacherProps = {
 };
 
 // Schema
-const userSchema = new mongoose.Schema({
-  ...basicProps,
-  studentProps: {
-    type: { ...studentProps },
+const userSchema = new mongoose.Schema<User>({
+  ...baseSchema.obj,
+  category: {
+    type: String,
+    required: true,
+    enum: Object.values(UserCategoryEnum),
+    lowercase: true,
+    trim: true,
   },
-  consultantProps: {
-    type: { ...consultantProps },
+  phoneNumber: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
   },
-  teacherProps: {
-    type: { ...teacherProps },
+  classroomIds: [{ type: mongoose.Types.ObjectId, ref: DbModelEnum.Classroom }],
+  profile: userProfileSchema,
+  attributesAs: {
+    student: { type: studentAttrs },
+    consultant: { type: consultantAttrs },
+    teacher: { type: teacherAttrs },
   },
 });
 

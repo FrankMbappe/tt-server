@@ -19,14 +19,14 @@ enum DbModelEnum {
   File = "File",
   Qa = "Qa",
   Quiz = "Quiz",
-  QuizSession = "QuizSession",
-  QuizParticipation = "QuizParticipation",
+  QaAttempt = "QaAttempt",
+  QuizAttempt = "QuizAttempt",
   Tutorial = "Tutorial",
   TutorialStep = "TutorialStep",
   UserProfile = "UserProfile",
 }
 
-enum UserTypeEnum {
+enum UserCategoryEnum {
   Teacher = "teacher",
   Student = "student",
   Consultant = "consultant",
@@ -43,7 +43,7 @@ enum UserHonorificEnum {
   Mrs = "Mrs",
   Ms = "Ms",
 }
-enum PostTypeEnum {
+enum PostCategoryEnum {
   Normal = "normal",
   Tutorial = "tutorial",
   Quiz = "quiz",
@@ -53,14 +53,19 @@ enum EventStatusEnum {
   Opened = "opened",
   Closed = "closed",
 }
+enum ClassromMemberRoleEnum {
+  Student = UserCategoryEnum.Student,
+  Consultant = UserCategoryEnum.Consultant,
+}
 
 export {
   ConfigEntryEnum,
   DbModelEnum,
-  UserTypeEnum,
+  UserCategoryEnum,
   UserGenderEnum,
   UserHonorificEnum,
-  PostTypeEnum,
+  PostCategoryEnum,
   EventStatusEnum,
+  ClassromMemberRoleEnum,
   MAX_FILE_SIZE,
 };

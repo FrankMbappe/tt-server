@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import { DbModelEnum, UserGenderEnum, UserHonorificEnum } from "@/enums";
+import userProfilePocketSchema from "./userProfilePocket";
+import UserProfile from "../interfaces/UserProfile";
 
-const userProfileSchema = new mongoose.Schema({
+const userProfileSchema = new mongoose.Schema<UserProfile>({
   honorific: {
     type: String,
     enum: Object.values(UserHonorificEnum),
@@ -28,11 +30,7 @@ const userProfileSchema = new mongoose.Schema({
     lowercase: true,
   },
   picUri: String,
-  picCloudPublicId: String,
-  pocket: {
-    posts: [{ type: mongoose.Types.ObjectId, ref: DbModelEnum.Post }],
-    // TODO Implement 'notes' property,
-  },
+  pocket: { type: userProfilePocketSchema, required: true },
 });
 
 export const UserProfileModel = mongoose.model(

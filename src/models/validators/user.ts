@@ -1,9 +1,9 @@
 import Joi from "joi";
-import { UserTypeEnum } from "@/enums";
+import { UserCategoryEnum } from "@/enums";
 import userProfileValidator from "./userProfile";
 
 export const userTypeValidator = Joi.string()
-  .valid(...Object.values(UserTypeEnum))
+  .valid(...Object.values(UserCategoryEnum))
   .required();
 
 const userValidator = Joi.object({

@@ -1,11 +1,13 @@
 import Joi from "joi";
-import { UserTypeEnum } from "@/enums";
+import { UserCategoryEnum } from "@/enums";
 
 const participationValidator = Joi.object({
   user: Joi.objectId().required(),
   role: Joi.string()
     .valid(
-      ...Object.values(UserTypeEnum).filter((t) => t != UserTypeEnum.Teacher)
+      ...Object.values(UserCategoryEnum).filter(
+        (t) => t != UserCategoryEnum.Teacher
+      )
     )
     .required(),
 });

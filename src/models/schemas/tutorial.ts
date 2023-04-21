@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 import postSchema from "./post";
 import tutorialStepSchema from "./tutorialStep";
 import { DbModelEnum } from "@/enums";
+import Tutorial from "../interfaces/Tutorial";
 
 // Inherit from post schema
-const tutorialSchema = new mongoose.Schema({
+const tutorialSchema = new mongoose.Schema<Tutorial>({
   ...postSchema.obj,
   title: { type: String, minlength: 1, maxlength: 255, required: true },
   description: { type: String, maxlength: 255 },

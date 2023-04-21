@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
-import participationSchema from "./participation";
+import classroomMemberSchema from "./classroomMember";
 import postSchema from "./post";
 import topicSchema from "./topic";
 import tutorialSchema from "./tutorial";
 import quizSchema from "./quiz";
 import { DbModelEnum } from "@/enums";
+import baseSchema from "./base";
+import Classroom from "../interfaces/Classroom";
 
-const classroomSchema = new mongoose.Schema({
+const classroomSchema = new mongoose.Schema<Classroom>({
+  ...baseSchema.obj,
   name: {
     type: String,
     minlength: 3,
@@ -19,8 +22,8 @@ const classroomSchema = new mongoose.Schema({
     maxlength: 255,
     trim: true,
   },
-  teacher: { type: mongoose.Types.ObjectId, ref: DbModelEnum.User },
-  participations: { type: [participationSchema], default: [] },
+  teacherId: { type: mongoose.Types.ObjectId, ref: DbModelEnum.User },
+  members: { type: [classroomMemberSchema], default: [] },
   posts: { type: [postSchema], default: [] },
   quizzes: { type: [quizSchema], default: [] },
   tutorials: { type: [tutorialSchema], default: [] },
