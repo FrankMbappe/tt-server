@@ -1,10 +1,10 @@
 import express, { Express } from "express";
 import helmet from "helmet";
 import loggingHandler from "@/middlewares/logging";
-import errorHandler from "@/middlewares/errors";
+import promiseRejectionsHandler from "@/middlewares/promiseRejections";
 
 const setupRoutes = (app: Express) => {
-  /* MIDDLEWARE */
+  // Setup middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(helmet());
@@ -18,8 +18,8 @@ const setupRoutes = (app: Express) => {
   // app.use("/api/countries", countries);
   // app.use("/api/users", users);
 
-  /* Handling routes errors */
-  app.use(errorHandler);
+  // Handle thrown errors
+  app.use(promiseRejectionsHandler);
 };
 
 export default setupRoutes;

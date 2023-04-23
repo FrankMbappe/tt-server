@@ -4,7 +4,7 @@ import "joi";
 
 declare module "express" {
   export interface Request {
-    user?: string | JwtPayload;
+    user?: JwtPayload;
   }
 }
 
