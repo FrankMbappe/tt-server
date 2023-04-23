@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import classroomMemberSchema from "./classroomMember";
 import postSchema from "./post";
 import topicSchema from "./topic";
@@ -8,7 +8,7 @@ import { DbModelEnum } from "@/enums";
 import baseSchema from "./base";
 import Classroom from "../interfaces/Classroom";
 
-const classroomSchema = new mongoose.Schema<Classroom>({
+const classroomSchema = new Schema<Classroom>({
   ...baseSchema.obj,
   name: {
     type: String,
@@ -22,7 +22,7 @@ const classroomSchema = new mongoose.Schema<Classroom>({
     maxlength: 255,
     trim: true,
   },
-  teacherId: { type: mongoose.Types.ObjectId, ref: DbModelEnum.User },
+  teacherId: { type: Schema.Types.ObjectId, ref: DbModelEnum.User },
   members: { type: [classroomMemberSchema], default: [] },
   posts: { type: [postSchema], default: [] },
   quizzes: { type: [quizSchema], default: [] },
@@ -30,7 +30,7 @@ const classroomSchema = new mongoose.Schema<Classroom>({
   topics: { type: [topicSchema], default: [] },
 });
 
-export const ClassroomModel = mongoose.model(
+export const ClassroomModel = model<Classroom>(
   DbModelEnum.Classroom,
   classroomSchema
 );

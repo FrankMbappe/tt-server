@@ -1,10 +1,10 @@
 import { ClassromMemberRoleEnum } from "@/enums";
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 type Role = `${ClassromMemberRoleEnum}`;
 
 export default interface ClassroomMember {
   joinedAt: Date;
-  userId: typeof mongoose.Types.ObjectId;
+  userId: Types.ObjectId;
   role: Role;
 }

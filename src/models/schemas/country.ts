@@ -1,14 +1,14 @@
 import { DbModelEnum } from "@/enums";
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import Country from "../interfaces/Country";
 
-const countrySchema = new mongoose.Schema<Country>({
+const countrySchema = new Schema<Country>({
   code: String,
   dialCode: { type: String, required: true },
   name: { type: String, required: true },
   flag: String,
 });
 
-export const CountryModel = mongoose.model(DbModelEnum.Country, countrySchema);
+export const CountryModel = model<Country>(DbModelEnum.Country, countrySchema);
 
 export default countrySchema;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import commentSchema from "./comment";
 import fileSchema from "./file";
 import likeSchema from "./like";
@@ -7,10 +7,10 @@ import { DbModelEnum, PostCategoryEnum } from "@/enums";
 import baseSchema from "./base";
 import Post from "../interfaces/Post";
 
-const postSchema = new mongoose.Schema<Post>({
+const postSchema = new Schema<Post>({
   ...baseSchema.obj,
   authorId: {
-    type: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: DbModelEnum.User,
     required: true,
   },
@@ -26,12 +26,12 @@ const postSchema = new mongoose.Schema<Post>({
   file: fileSchema,
   topics: { type: [topicSchema], default: [] },
   viewerIds: {
-    type: [mongoose.Types.ObjectId],
+    type: [Schema.Types.ObjectId],
     ref: DbModelEnum.User,
     default: [],
   },
 });
 
-export const PostModel = mongoose.model(DbModelEnum.Post, postSchema);
+export const PostModel = model<Post>(DbModelEnum.Post, postSchema);
 
 export default postSchema;

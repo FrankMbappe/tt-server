@@ -1,8 +1,9 @@
 import Joi from "joi";
 import { UserGenderEnum, UserHonorificEnum } from "@/enums";
-import userPocketValidator from "./userPocket";
+import userProfilePocketValidator from "./userProfilePocket";
+import UserProfile from "../interfaces/UserProfile";
 
-const userProfileValidator = Joi.object({
+const userProfileValidator = Joi.object<UserProfile>({
   honorific: Joi.string().valid(...Object.values(UserHonorificEnum)),
   firstName: Joi.string().min(1).max(255).required(),
   lastName: Joi.string().min(1).max(255).required(),
@@ -10,8 +11,7 @@ const userProfileValidator = Joi.object({
   email: Joi.string().email(),
   gender: Joi.string().valid(...Object.values(UserGenderEnum)),
   picUri: Joi.string(),
-  picCloudPublicId: Joi.string(),
-  pocket: userPocketValidator,
+  pocket: userProfilePocketValidator,
 });
 
 export default userProfileValidator;

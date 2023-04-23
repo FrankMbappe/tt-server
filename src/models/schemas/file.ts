@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import { DbModelEnum, MAX_FILE_SIZE } from "@/enums";
 import baseSchema from "./base";
 import UserFile from "../interfaces/UserFile";
 
-const fileSchema = new mongoose.Schema<UserFile>({
+const fileSchema = new Schema<UserFile>({
   ...baseSchema.obj,
-  authorId: { type: mongoose.Types.ObjectId, ref: DbModelEnum.User },
+  authorId: { type: Schema.Types.ObjectId, ref: DbModelEnum.User },
   mimeType: { type: String, required: true },
   uri: { type: String, required: true },
   name: { type: String, maxlength: 255, required: true },
@@ -14,6 +14,6 @@ const fileSchema = new mongoose.Schema<UserFile>({
   publicCloudId: String,
 });
 
-export const FileModel = mongoose.model(DbModelEnum.File, fileSchema);
+export const FileModel = model<UserFile>(DbModelEnum.File, fileSchema);
 
 export default fileSchema;

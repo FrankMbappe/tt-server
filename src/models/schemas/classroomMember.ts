@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import { Schema } from "mongoose";
 import { ClassromMemberRoleEnum, DbModelEnum } from "@/enums";
 import ClassroomMember from "../interfaces/ClassroomMember";
 
-const classroomMemberSchema = new mongoose.Schema<ClassroomMember>({
+const classroomMemberSchema = new Schema<ClassroomMember>({
   joinedAt: { type: Date, default: Date.now },
   userId: {
-    type: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: DbModelEnum.User,
     required: true,
   },

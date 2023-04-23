@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import Base from "./Base";
 import UserFile from "./UserFile";
 
@@ -6,5 +7,5 @@ export default interface TutorialStep extends Base {
   title: string;
   description?: string;
   video: UserFile;
-  viewerIds: string[];
+  viewerIds: Types.ObjectId[];
 }

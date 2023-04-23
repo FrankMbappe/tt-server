@@ -1,12 +1,12 @@
-import mongoose from "mongoose";
+import { Schema, Model, model } from "mongoose";
 import config from "config";
 import jwt from "jsonwebtoken";
 import startCase from "lodash/startCase";
 import capitalize from "lodash/capitalize";
-import { DbModelEnum, UserCategoryEnum } from "@/enums";
+import { ConfigEntryEnum, DbModelEnum, UserCategoryEnum } from "@/enums";
 import userProfileSchema from "./userProfile";
 import baseSchema from "./base";
-import User from "../interfaces/User";
+import User, { UserMethods } from "../interfaces/User";
 
 const studentAttrs = {
   fieldOfStudy: {
@@ -15,7 +15,7 @@ const studentAttrs = {
     maxlength: 255,
     trim: true,
   },
-  // TODO: reportCard: [{ Results }]
+  // TODO reportCard: [{ Results }]
 };
 const consultantAttrs = {
   expertIn: {
@@ -50,11 +50,13 @@ const teacherAttrs = {
       maxlength: 255,
     },
   ],
-  // TODO: schools or lecturesAt: []
+  // TODO schools or lecturesAt: []
 };
 
+type UserModelWithMethods = Model<User, {}, UserMethods>;
+
 // Schema
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new Schema<User, UserModelWithMethods>({
   ...baseSchema.obj,
   category: {
     type: String,
@@ -69,7 +71,7 @@ const userSchema = new mongoose.Schema<User>({
     trim: true,
     unique: true,
   },
-  classroomIds: [{ type: mongoose.Types.ObjectId, ref: DbModelEnum.Classroom }],
+  classroomIds: [{ type: Schema.Types.ObjectId, ref: DbModelEnum.Classroom }],
   profile: userProfileSchema,
   attributesAs: {
     student: { type: studentAttrs },
@@ -79,7 +81,7 @@ const userSchema = new mongoose.Schema<User>({
 });
 
 // Adds the token generation directly to the User object
-userSchema.methods.generateAuthToken = function () {
+userSchema.method("generateAuthToken", function generateAuthToken() {
   const token = jwt.sign(
     {
       _id: this._id,
@@ -101,11 +103,14 @@ userSchema.methods.generateAuthToken = function () {
         },
       }),
     },
-    config.get("jwtPrivateKey")
+    config.get(ConfigEntryEnum.JwtPrivateKey)
   );
   return token;
-};
+});
 
-export const UserModel = mongoose.model(DbModelEnum.User, userSchema);
+export const UserModel = model<User, UserModelWithMethods>(
+  DbModelEnum.User,
+  userSchema
+);
 
 export default userSchema;

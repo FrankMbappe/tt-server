@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import { Schema } from "mongoose";
+import Base from "../interfaces/Base";
 
-const baseSchema = new mongoose.Schema({
+const baseSchema = new Schema<Base>({
   createdAt: { type: Date, default: Date.now },
 });
 

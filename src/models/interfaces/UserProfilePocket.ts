@@ -1,3 +1,6 @@
+import { Types } from "mongoose";
+
 export default interface UserProfilePocket {
-  postIds: string[];
+  postIds: Types.ObjectId[];
+  // TODO Implement 'notes'
 }

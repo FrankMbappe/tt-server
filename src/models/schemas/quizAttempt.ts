@@ -1,20 +1,20 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import { DbModelEnum } from "@/enums";
 import qaAttemptSchema from "./qaAttempt";
 import baseSchema from "./base";
 import QuizAttempt from "../interfaces/QuizAttempt";
 
-const quizAttemptSchema = new mongoose.Schema<QuizAttempt>({
+const quizAttemptSchema = new Schema<QuizAttempt>({
   ...baseSchema.obj,
   authorId: {
-    type: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: true,
     ref: DbModelEnum.User,
   },
   qaAttempts: { type: [qaAttemptSchema], default: [] },
 });
 
-export const QuizAttemptModel = mongoose.model(
+export const QuizAttemptModel = model<QuizAttempt>(
   DbModelEnum.QuizAttempt,
   quizAttemptSchema
 );

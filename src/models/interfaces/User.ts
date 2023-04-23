@@ -1,10 +1,10 @@
 import Base from "./Base";
 import UserProfile from "./UserProfile";
 
-type StudentAttributes = {
+export type UserStudentAttributes = {
   fieldOfStudy: string; // TODO Store Fields separately
 };
-type ConsultantAttributes = {
+export type UserConsultantAttributes = {
   expertIn: string;
   otherDomainsOfExpertise: string[];
   yearsOfExperience: number;
@@ -12,19 +12,23 @@ type ConsultantAttributes = {
   proPhoneNumber?: string;
   proEmail?: string;
 };
-type TeacherAtrributes = {
+export type UserTeacherAtrributes = {
   lecturesIn: string[];
 };
+export type UserCategoryAttributes = {
+  student?: UserStudentAttributes;
+  consultant?: UserConsultantAttributes;
+  teacher?: UserTeacherAtrributes;
+};
+
+export interface UserMethods {
+  generateAuthToken(): string;
+}
 
 export default interface User extends Base {
   category: string;
   phoneNumber: string;
   classroomIds: string[];
   profile: UserProfile;
-  attributesAs: {
-    student?: StudentAttributes;
-    consultant?: ConsultantAttributes;
-    teacher?: TeacherAtrributes;
-  };
-  generateAuthToken: () => string;
+  attributesAs: UserCategoryAttributes;
 }

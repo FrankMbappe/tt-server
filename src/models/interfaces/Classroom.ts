@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 import Base from "./Base";
 import ClassroomMember from "./ClassroomMember";
 import Post from "./Post";
@@ -9,7 +9,7 @@ import Topic from "./Topic";
 export default interface Classroom extends Base {
   name: string;
   description?: string;
-  teacherId: typeof mongoose.Types.ObjectId;
+  teacherId: Types.ObjectId;
   members: ClassroomMember[];
   posts: Post[];
   quizzes: Quiz[];

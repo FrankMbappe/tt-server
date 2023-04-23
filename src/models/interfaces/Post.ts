@@ -4,17 +4,17 @@ import Like from "./Like";
 import Comment from "./Comment";
 import UserFile from "./UserFile";
 import Topic from "./Topic";
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 type PostCategory = `${PostCategoryEnum}`;
 
 export default interface Post extends Base {
-  authorId: typeof mongoose.Types.ObjectId;
+  authorId: Types.ObjectId;
   category: PostCategory;
   text?: string;
   likes: Like[];
   comments: Comment[];
   file: UserFile;
   topics: Topic[];
-  viewerIds: (typeof mongoose.Types.ObjectId)[];
+  viewerIds: Types.ObjectId[];
 }

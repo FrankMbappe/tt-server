@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import { DbModelEnum, UserGenderEnum, UserHonorificEnum } from "@/enums";
 import userProfilePocketSchema from "./userProfilePocket";
 import UserProfile from "../interfaces/UserProfile";
 
-const userProfileSchema = new mongoose.Schema<UserProfile>({
+const userProfileSchema = new Schema<UserProfile>({
   honorific: {
     type: String,
     enum: Object.values(UserHonorificEnum),
@@ -33,7 +33,7 @@ const userProfileSchema = new mongoose.Schema<UserProfile>({
   pocket: { type: userProfilePocketSchema, required: true },
 });
 
-export const UserProfileModel = mongoose.model(
+export const UserProfileModel = model<UserProfile>(
   DbModelEnum.UserProfile,
   userProfileSchema
 );
