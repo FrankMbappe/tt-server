@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import "module-alias/register";
 import winston from "winston";
 import startUp from "./startup";
 
