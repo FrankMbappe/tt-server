@@ -73,7 +73,7 @@ router.get("/confirm", async (req, res) => {
       });
       await newUser.save();
 
-      // Generate JWT token
+      // Generate JWT
       const token = newUser.generateAuthToken();
 
       return res.send({
@@ -83,7 +83,7 @@ router.get("/confirm", async (req, res) => {
       });
     }
 
-    // If user exists, generate JWT token
+    // If user exists, generate JWT
     const token = user.generateAuthToken();
 
     return res.send({

@@ -1,7 +1,7 @@
 import auth from "@/middlewares/auth";
 import Comment from "@/models/interfaces/Comment";
-import { ClassroomModel } from "@/models/schemas/classroom";
 import { CommentModel } from "@/models/schemas/comment";
+import { LikeModel } from "@/models/schemas/like";
 import { PostModel } from "@/models/schemas/post";
 import commentValidator from "@/models/validators/comment";
 import { Request, Router } from "express";
@@ -74,11 +74,34 @@ router.post("/", auth, async (req: Request, res) => {
  * Delete comment
  */
 router.delete("/:commentId", auth, async (req, res) => {
-  // TODO Start transaction
-  // Delete comment likes
-  // Delete comment
-  // Decrease post's comment count
-  // Commit transaction
+  // Start transaction
+  const session = await CommentModel.startSession();
+  session.startTransaction();
+
+  try {
+    // Delete comment
+    await CommentModel.findByIdAndDelete(req.params.commentId);
+
+    // Delete comment likes
+    await LikeModel.deleteMany({ commentId: req.params.commentId });
+
+    // Decrease post's comment count
+    const postUpdate = await PostModel.findByIdAndUpdate(req.params.postId, {
+      $inc: { commentsCount: -1 },
+    });
+
+    // Commit transaction
+    await session.commitTransaction();
+
+    res.send({ updatedPost: postUpdate?.toObject() });
+  } catch (ex) {
+    // Abort transaction
+    await session.abortTransaction();
+    throw new Error();
+  } finally {
+    // End session
+    session.endSession();
+  }
 });
 
 export default router;

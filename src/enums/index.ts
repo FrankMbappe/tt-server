@@ -15,6 +15,7 @@ enum DbModelEnum {
   Classroom = "Classroom",
   Post = "Post",
   Comment = "Comment",
+  Like = "Like",
   Country = "Country",
   File = "File",
   Qa = "Qa",

@@ -15,7 +15,6 @@ const router = Router();
  * Get all classrooms
  */
 router.get("/", auth, async (req, res) => {
-  // TODO Remove populate
   const classrooms = await ClassroomModel.find({});
   res.send(classrooms);
 });
@@ -172,7 +171,6 @@ router.delete(
 
     try {
       const classroom = await ClassroomModel.findById(req.params.id);
-
       if (!classroom) {
         await session.abortTransaction();
         return res.status(StatusCodes.NOT_FOUND).send("No such classroom");

@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { DbModelEnum } from "@/enums";
 import baseSchema from "./base";
 import Like, { LikeAuthor } from "../interfaces/Like";
@@ -15,5 +15,7 @@ const likeSchema = new Schema<Like>({
   commentId: { type: Schema.Types.ObjectId, ref: DbModelEnum.Comment },
   author: { type: likeAuthorSchema },
 });
+
+export const LikeModel = model<Like>(DbModelEnum.Like, likeSchema);
 
 export default likeSchema;

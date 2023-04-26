@@ -27,7 +27,6 @@ router.get("/:phone", async (req, res) => {
       (await UserModel.findOne({
         phoneNumber: phoneNumberInstance.phoneNumber,
       }).countDocuments()) > 0;
-
     if (!phoneNumberExists) throw noSuchPhoneNumberError;
 
     return res.send({

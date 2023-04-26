@@ -8,7 +8,6 @@ export default function setupConfig() {
   const isEveryEnvSet = Object.values(ConfigEntryEnum).every((entry) =>
     config.has(entry)
   );
-
   if (!isEveryEnvSet)
     throw new Error(
       "FATAL ERROR: Some of the required the environment variables are not set."
