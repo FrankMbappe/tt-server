@@ -97,7 +97,7 @@ userSchema.method("generateAuthToken", function generateAuthToken() {
             startCase(
               `${this.profile.firstName} ${this.profile.lastName}`.trim()
             ),
-          picUri: this.profile.picUri,
+          picUrl: this.profile.picUrl,
           birthDate: this.profile.birthDate,
           gender: this.profile.gender,
         },

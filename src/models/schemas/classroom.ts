@@ -22,11 +22,8 @@ const classroomSchema = new Schema<Classroom>({
     maxlength: 255,
     trim: true,
   },
-  teacherId: { type: Schema.Types.ObjectId, ref: DbModelEnum.User },
+  teacher: classroomMemberSchema,
   members: { type: [classroomMemberSchema], default: [] },
-  posts: { type: [postSchema], default: [] },
-  quizzes: { type: [quizSchema], default: [] },
-  tutorials: { type: [tutorialSchema], default: [] },
   topics: { type: [topicSchema], default: [] },
 });
 

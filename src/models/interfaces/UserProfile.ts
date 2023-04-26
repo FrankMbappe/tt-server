@@ -1,13 +1,21 @@
 import { UserGenderEnum, UserHonorificEnum } from "@/enums";
 import UserProfilePocket from "./UserProfilePocket";
 
+export type UserHonorific = `${UserHonorificEnum}`;
+export type UserGender = `${UserGenderEnum}`;
+
 export default interface UserProfile {
-  honorific: `${UserHonorificEnum}`;
+  honorific: UserHonorific;
   firstName: string;
   lastName: string;
+  picUrl?: string;
   birthDate: Date;
   email?: string;
-  gender: `${UserGenderEnum}`;
-  picUri: string;
+  gender: UserGender;
   pocket: UserProfilePocket;
 }
+
+export type BasicUserProfile = Pick<
+  UserProfile,
+  "firstName" | "lastName" | "picUrl"
+>;

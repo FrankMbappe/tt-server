@@ -35,7 +35,7 @@ const userValidator = Joi.object<User>({
     teacher: Joi.object<UserTeacherAtrributes>({
       lecturesIn: Joi.array<string>().required(),
     }),
-  }),
+  }).or("student", "consultant", "teacher"),
 });
 
 export default userValidator;

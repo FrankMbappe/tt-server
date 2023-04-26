@@ -1,12 +1,16 @@
 import Joi from "joi";
-import likeValidator from "./like";
-import Comment from "../interfaces/Comment";
-import Like from "../interfaces/Like";
+import Comment, { CommentAuthor } from "../interfaces/Comment";
+import { basicUserProfileValidator } from "./userProfile";
+
+export const commentAuthorValidator =
+  basicUserProfileValidator.append<CommentAuthor>({});
 
 const commentValidator = Joi.object<Comment>({
   authorId: Joi.objectId().required(),
+  postId: Joi.objectId().required(),
   text: Joi.string().min(1).max(500).required(),
-  likes: Joi.array<Like>().items(likeValidator),
+  likesCount: Joi.number().positive().required(),
+  author: commentAuthorValidator,
 });
 
 export default commentValidator;

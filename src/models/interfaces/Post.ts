@@ -1,20 +1,21 @@
 import { PostCategoryEnum } from "@/enums";
 import Base from "./Base";
-import Like from "./Like";
-import Comment from "./Comment";
 import UserFile from "./UserFile";
 import Topic from "./Topic";
 import { Types } from "mongoose";
+import { BasicUserProfile } from "./UserProfile";
 
-type PostCategory = `${PostCategoryEnum}`;
+export type PostCategory = `${PostCategoryEnum}`;
+export type PostAuthor = BasicUserProfile;
 
 export default interface Post extends Base {
   authorId: Types.ObjectId;
+  author: PostAuthor;
   category: PostCategory;
   text?: string;
-  likes: Like[];
-  comments: Comment[];
-  file: UserFile;
+  file?: UserFile;
+  likesCount: number;
+  commentsCount: number;
   topics: Topic[];
   viewerIds: Types.ObjectId[];
 }

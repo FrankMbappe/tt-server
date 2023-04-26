@@ -1,10 +1,11 @@
 import { ClassromMemberRoleEnum } from "@/enums";
 import { Types } from "mongoose";
+import { BasicUserProfile } from "./UserProfile";
 
-type Role = `${ClassromMemberRoleEnum}`;
+export type ClassroomMemberRole = `${ClassromMemberRoleEnum}`;
 
-export default interface ClassroomMember {
+export default interface ClassroomMember extends BasicUserProfile {
   joinedAt: Date;
   userId: Types.ObjectId;
-  role: Role;
+  role: ClassroomMemberRole;
 }

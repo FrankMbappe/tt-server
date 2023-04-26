@@ -1,8 +1,4 @@
 import { Request, Response, Router } from "express";
-import postRouter from "./posts";
-import quizRouter from "./quizzes";
-import tutorialRouter from "./tutorials";
-import commentRouter from "./comments";
 import { ClassroomModel } from "@/models/schemas/classroom";
 import authUserCategory from "@/middlewares/authUserCategory";
 import { UserCategoryEnum } from "@/enums";
@@ -13,16 +9,14 @@ import auth from "@/middlewares/auth";
 
 const router = Router();
 
+// TODO Get all classrooms by user ID
+
 /**
  * Get all classrooms
  */
 router.get("/", auth, async (req, res) => {
   // TODO Remove populate
-  const classrooms = await ClassroomModel.find({}).populate(
-    "teacher posts.authorId posts.comments.authorId" +
-      " quizzes.authorId quizzes.comments.authorId" +
-      " tutorials.authorId tutorials.comments.authorId"
-  );
+  const classrooms = await ClassroomModel.find({});
   res.send(classrooms);
 });
 
@@ -215,17 +209,9 @@ router.delete(
   }
 );
 
-// Additional route handlers
-// POSTS
-router.use("/:id/posts", postRouter);
-
-// QUIZZES
-router.use("/:id/quizzes", quizRouter);
-
-// TUTORIALS
-router.use("/:id/tutorials", tutorialRouter);
-
-// COMMENTS
-router.use("/:id/posts/:postId/comments", commentRouter);
+// External route handlers
+// router.use("/:classroomId/posts", postRouter);
+// router.use("/:classroomId/quizzes", quizRouter);
+// router.use("/:classroomId/tutorials", tutorialRouter);
 
 export default router;
