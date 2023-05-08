@@ -6,14 +6,15 @@ import Post, { PostAuthor } from "../interfaces/Post";
 import Topic from "../interfaces/Topic";
 import { Types } from "mongoose";
 import { basicUserProfileValidator } from "./userProfile";
+import joiObjectId from "@/libs/joi";
 
 export const postAuthorValidator = basicUserProfileValidator.append<PostAuthor>(
   {}
 );
 
 const postValidator = Joi.object<Post>({
-  classroomId: Joi.objectId().required(),
-  authorId: Joi.objectId().required(),
+  classroomId: joiObjectId().required(),
+  authorId: joiObjectId().required(),
   author: postAuthorValidator,
   category: Joi.string()
     .valid(...Object.values(PostCategoryEnum))
@@ -23,7 +24,7 @@ const postValidator = Joi.object<Post>({
   likesCount: Joi.number().positive().required(),
   commentsCount: Joi.number().positive().required(),
   topics: Joi.array<Topic>().items(topicValidator),
-  viewerIds: Joi.array<Types.ObjectId>().items(Joi.objectId()),
+  viewerIds: Joi.array<Types.ObjectId>().items(joiObjectId()),
 }).or("text", "file"); // At least file if no text
 
 export default postValidator;

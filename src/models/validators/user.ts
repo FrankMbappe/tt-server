@@ -8,6 +8,7 @@ import User, {
   UserTeacherAtrributes,
 } from "../interfaces/User";
 import { Types } from "mongoose";
+import joiObjectId from "@/libs/joi";
 
 export const userCategoryValidator = Joi.string()
   .valid(...Object.values(UserCategoryEnum))
@@ -16,7 +17,7 @@ export const userCategoryValidator = Joi.string()
 const userValidator = Joi.object<User>({
   category: userCategoryValidator,
   phoneNumber: Joi.string().min(5).max(255).required(),
-  classroomIds: Joi.array<Types.ObjectId>().items(Joi.objectId().required()),
+  classroomIds: Joi.array<Types.ObjectId>().items(joiObjectId().required()),
   profile: userProfileValidator,
   attributesAs: Joi.object<UserCategoryAttributes>({
     student: Joi.object<UserStudentAttributes>({
