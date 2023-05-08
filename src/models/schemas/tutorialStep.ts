@@ -1,6 +1,6 @@
 import { DbModelEnum } from "@/enums";
 import { Schema, model } from "mongoose";
-import fileSchema from "./file";
+import userFileSchema from "./userFile";
 import baseSchema from "./base";
 import TutorialStep from "../interfaces/TutorialStep";
 
@@ -9,7 +9,7 @@ const tutorialStepSchema = new Schema<TutorialStep>({
   index: { type: Number, required: true },
   title: { type: String, minlength: 1, maxlength: 255, required: true },
   description: { type: String, maxlength: 255 },
-  video: { type: fileSchema, required: true },
+  video: { type: userFileSchema, required: true },
   viewerIds: { type: [Schema.Types.ObjectId], default: [] },
 });
 

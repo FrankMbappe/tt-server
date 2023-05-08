@@ -1,5 +1,0 @@
-{
-    "name": "Nett-Server — Test",
-    "jwtPrivateKey": "1234",
-    "db": "mongodb://localhost/nettdb_tests"
-}

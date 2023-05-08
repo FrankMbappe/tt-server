@@ -6,8 +6,16 @@ import classroomValidator from "@/models/validators/classroom";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { UserModel } from "@/models/schemas/user";
 import auth from "@/middlewares/auth";
+import postRouter from "./posts";
+import quizRouter from "./quizzes";
+import tutorialRouter from "./tutorials";
 
 const router = Router();
+
+// Sub routers
+router.use("/:classroomId/posts", postRouter);
+router.use("/:classroomId/quizzes", quizRouter);
+router.use("/:classroomId/tutorials", tutorialRouter);
 
 // TODO Get all classrooms by user ID
 
@@ -23,11 +31,7 @@ router.get("/", auth, async (req, res) => {
  * Get a classroom by ID
  */
 router.get("/:id", auth, async (req, res) => {
-  const classroom = await ClassroomModel.findById(req.params.id).populate(
-    "teacher posts.authorId posts.comments.authorId" +
-      " quizzes.authorId quizzes.comments.authorId" +
-      " tutorials.authorId tutorials.comments.authorId"
-  );
+  const classroom = await ClassroomModel.findById(req.params.id);
   res.send(classroom);
 });
 
@@ -74,9 +78,7 @@ router.post(
     } catch (error) {
       // Abort transaction
       await session.abortTransaction();
-      return res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+      throw new Error();
     } finally {
       // End session
       session.endSession();
@@ -197,19 +199,12 @@ router.delete(
     } catch (ex) {
       // Abort transaction
       await session.abortTransaction();
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
+      throw new Error();
     } finally {
       // End session
       session.endSession();
     }
   }
 );
-
-// External route handlers
-// router.use("/:classroomId/posts", postRouter);
-// router.use("/:classroomId/quizzes", quizRouter);
-// router.use("/:classroomId/tutorials", tutorialRouter);
 
 export default router;

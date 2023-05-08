@@ -10,7 +10,7 @@ const router = express.Router();
  * Get all users
  */
 router.get("/", async (_, res) => {
-  const users = await UserModel.find().sort("creationDate");
+  const users = await UserModel.find().sort("createdAt");
   res.send(users);
 });
 

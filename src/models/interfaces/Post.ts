@@ -9,6 +9,7 @@ export type PostCategory = `${PostCategoryEnum}`;
 export type PostAuthor = BasicUserProfile;
 
 export default interface Post extends Base {
+  classroomId: Types.ObjectId;
   authorId: Types.ObjectId;
   author: PostAuthor;
   category: PostCategory;

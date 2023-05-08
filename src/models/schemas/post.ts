@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import fileSchema from "./file";
+import userFileSchema from "./userFile";
 import topicSchema from "./topic";
 import { DbModelEnum, PostCategoryEnum } from "@/enums";
 import baseSchema from "./base";
@@ -12,6 +12,11 @@ export const postAuthorSchema = new Schema<PostAuthor>({
 
 const postSchema = new Schema<Post>({
   ...baseSchema.obj,
+  classroomId: {
+    type: Schema.Types.ObjectId,
+    ref: DbModelEnum.Classroom,
+    required: true,
+  },
   authorId: {
     type: Schema.Types.ObjectId,
     ref: DbModelEnum.User,
@@ -25,7 +30,7 @@ const postSchema = new Schema<Post>({
   },
   // TODO Create an enum/object for default values like maxLength '3000'
   text: { type: String, maxlength: 3000 },
-  file: fileSchema,
+  file: userFileSchema,
   commentsCount: { type: Number, required: true },
   likesCount: { type: Number, required: true },
   topics: { type: [topicSchema], default: [] },

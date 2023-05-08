@@ -3,7 +3,7 @@ const MAX_FILE_SIZE = 1e8;
 enum ConfigEntryEnum {
   TwilioAccountSid = "twilioAccountSid",
   TwilioAuthToken = "twilioAuthToken",
-  TwilioServiceId = "twilioServiceId",
+  TwilioVerifySid = "twilioVerifySid",
   JwtPrivateKey = "jwtPrivateKey",
   CloudinaryCloudName = "cloudinaryCloudName",
   CloudinaryApiKey = "cloudinaryApiKey",

@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { PostCategoryEnum } from "@/enums";
-import fileValidator from "./file";
+import userFileValidator from "./userFile";
 import topicValidator from "./topic";
 import Post, { PostAuthor } from "../interfaces/Post";
 import Topic from "../interfaces/Topic";
@@ -12,13 +12,14 @@ export const postAuthorValidator = basicUserProfileValidator.append<PostAuthor>(
 );
 
 const postValidator = Joi.object<Post>({
+  classroomId: Joi.objectId().required(),
   authorId: Joi.objectId().required(),
   author: postAuthorValidator,
   category: Joi.string()
     .valid(...Object.values(PostCategoryEnum))
     .required(),
   text: Joi.string().max(3000),
-  file: fileValidator,
+  file: userFileValidator,
   likesCount: Joi.number().positive().required(),
   commentsCount: Joi.number().positive().required(),
   topics: Joi.array<Topic>().items(topicValidator),

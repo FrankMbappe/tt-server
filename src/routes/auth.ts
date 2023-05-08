@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 
   try {
     const verificationInstance = await twilioClient.verify.v2
-      .services(config.get(ConfigEntryEnum.TwilioServiceId))
+      .services(config.get(ConfigEntryEnum.TwilioVerifySid))
       .verifications.create({ to: query.phone, channel: "sms" });
 
     return res.send(verificationInstance);
@@ -48,7 +48,7 @@ router.get("/confirm", async (req, res) => {
 
   try {
     const { dateCreated, status, to } = await twilioClient.verify.v2
-      .services(config.get(ConfigEntryEnum.TwilioServiceId))
+      .services(config.get(ConfigEntryEnum.TwilioVerifySid))
       .verificationChecks.create({ to: query.phone, code: query.code });
 
     // Prepare response

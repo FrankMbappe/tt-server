@@ -8,8 +8,9 @@ export default function setupConfig() {
   const isEveryEnvSet = Object.values(ConfigEntryEnum).every((entry) =>
     config.has(entry)
   );
+  Object.values(ConfigEntryEnum).forEach((entry) =>
+    console.log(entry, config.get(entry))
+  );
   if (!isEveryEnvSet)
-    throw new Error(
-      "FATAL ERROR: Some of the required the environment variables are not set."
-    );
+    throw new Error("FATAL ERROR: Some of the required env are missing.");
 }

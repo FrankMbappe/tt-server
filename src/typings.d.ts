@@ -1,6 +1,7 @@
 import { JwtPayload } from "jsonwebtoken";
 import "express";
 import "joi";
+import "joi-objectid";
 
 declare module "express" {
   export interface Request {
@@ -13,3 +14,5 @@ declare module "joi" {
     objectId(): StringSchema;
   }
 }
+
+declare module "joi-objectid";

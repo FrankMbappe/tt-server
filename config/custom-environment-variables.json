@@ -1,7 +1,7 @@
 {
   "twilioAccountSid": "TWILIO_ACCOUNT_SID",
   "twilioAuthToken": "TWILIO_AUTH_TOKEN",
-  "twilioServiceId": "TWILIO_SERVICE_ID",
+  "twilioVerifySid": "TWILIO_VERIFY_SID",
   "jwtPrivateKey": "JWT_PRIVATE_KEY",
   "cloudinaryCloudName": "CLOUDINARY_CLOUD_NAME",
   "cloudinaryApiKey": "CLOUDINARY_API_KEY",

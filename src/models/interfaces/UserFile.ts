@@ -2,9 +2,9 @@ import { Types } from "mongoose";
 import Base from "./Base";
 
 export default interface UserFile extends Base {
-  authorId: Types.ObjectId;
+  authorId?: Types.ObjectId;
   mimeType: string;
-  uri: string;
+  url: string;
   name: string;
   size: number;
   extension: string;

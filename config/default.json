@@ -1,0 +1,11 @@
+{
+  "name": "Nett-Server",
+  "db": "mongodb://localhost/nettdb",
+  "twilioVerifySid": "",
+  "twilioAccountSid": "",
+  "twilioAuthToken": "",
+  "jwtPrivateKey": "",
+  "cloudinaryCloudName": "",
+  "cloudinaryApiKey": "",
+  "cloudinaryApiSecret": ""
+}
